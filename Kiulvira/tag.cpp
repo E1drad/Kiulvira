@@ -5,11 +5,11 @@ Tag::Tag(std::string name, QColor colour) {
     this->colour = colour;
 }
 
-std::string Tag::getName(){
+std::string Tag::getName() {
     return this->name;
 }
 
-QColor Tag::getColour(){
+QColor Tag::getColour() {
     return this->colour;
 }
 

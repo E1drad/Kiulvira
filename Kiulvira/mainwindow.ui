@@ -1,24 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow" >
-  <property name="geometry" >
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>720</width>
+    <height>600</height>
    </rect>
   </property>
-  <property name="windowTitle" >
-   <string>MainWindow</string>
+  <property name="windowTitle">
+   <string notr="true">Kiulvira</string>
   </property>
-  <widget class="QMenuBar" name="menuBar" />
-  <widget class="QToolBar" name="mainToolBar" />
-  <widget class="QWidget" name="centralWidget" />
-  <widget class="QStatusBar" name="statusBar" />
+  <widget class="QWidget" name="centralWidget"/>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>720</width>
+     <height>24</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFichier">
+    <property name="title">
+     <string>Fichier</string>
+    </property>
+    <addaction name="actionNouveauTag"/>
+    <addaction name="actionNouveauGroupe"/>
+    <addaction name="separator"/>
+    <addaction name="actionFermer"/>
+   </widget>
+   <widget class="QMenu" name="menuEdition">
+    <property name="title">
+     <string>Edition</string>
+    </property>
+    <addaction name="actionAssocierFichier"/>
+    <addaction name="actionAssocierGroupe"/>
+    <addaction name="separator"/>
+    <addaction name="actionDesassocierFichier"/>
+    <addaction name="actionDesassocierGroupe"/>
+    <addaction name="separator"/>
+    <addaction name="actionRechercher"/>
+    <addaction name="separator"/>
+   </widget>
+   <addaction name="menuFichier"/>
+   <addaction name="menuEdition"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionNouveauTag">
+   <property name="text">
+    <string>Nouvelle étiquette</string>
+   </property>
+  </action>
+  <action name="actionNouveauGroupe">
+   <property name="text">
+    <string>Nouveau groupe</string>
+   </property>
+  </action>
+  <action name="actionFermer">
+   <property name="text">
+    <string>Fermer</string>
+   </property>
+  </action>
+  <action name="actionAssocierFichier">
+   <property name="text">
+    <string>Associer au fichier ...</string>
+   </property>
+  </action>
+  <action name="actionAssocierGroupe">
+   <property name="text">
+    <string>Associer au groupe ...</string>
+   </property>
+  </action>
+  <action name="actionDesassocierFichier">
+   <property name="text">
+    <string>Désassocier du fichier</string>
+   </property>
+  </action>
+  <action name="actionDesassocierGroupe">
+   <property name="text">
+    <string>Désassocier du groupe</string>
+   </property>
+  </action>
+  <action name="actionRechercher">
+   <property name="text">
+    <string>Rechercher</string>
+   </property>
+  </action>
  </widget>
- <layoutDefault spacing="6" margin="11" />
- <pixmapfunction></pixmapfunction>
+ <layoutdefault spacing="6" margin="11"/>
  <resources/>
  <connections/>
 </ui>
