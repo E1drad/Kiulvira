@@ -1,5 +1,5 @@
 #include "file.hpp"
 
-File::File(string name, Data* parent):Data::Data(name,parent) {
+File::File(std::string name, Data* parent):Data::Data(name,parent) {
 
 }

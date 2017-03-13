@@ -12,3 +12,7 @@ std::string Tag::getName(){
 QColor Tag::getColour(){
     return this->colour;
 }
+
+bool Tag::operator==(const Tag& other) {
+    return this->name == other.name && this->colour == other.colour;
+}

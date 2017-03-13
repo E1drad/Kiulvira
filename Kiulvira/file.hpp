@@ -7,7 +7,7 @@ class File : public Data {
 private:
 
 public:
-    File(string name, Data* parent);
+    File(std::string name, Data* parent);
 };
 
 #endif // FILE_HPP

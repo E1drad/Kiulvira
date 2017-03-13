@@ -1,11 +1,11 @@
 #include "data.hpp"
 
-Data::Data(string name, Data* parent) {
+Data::Data(std::string name, Data* parent) {
     this->name = name;
     this->parent = parent;
 }
 
-Data::Data(string name) {
+Data::Data(std::string name) {
     this->name = name;
 }
 
@@ -14,8 +14,8 @@ Data::Data(string name) {
  * @param tag
  * @return true if the tag was added to the data
  */
-bool Data::addTag(Tag tag) {
-    return this->tags.insert(tag).second;
+void Data::addTag(Tag tag) {
+    this->tags.push_back(tag);
 }
 
 /**
@@ -23,8 +23,8 @@ bool Data::addTag(Tag tag) {
  * @param tag
  * @return true if the tag was attached to this data
  */
-bool Data::removeTag(Tag tag) {
-    return (this->tags.erase(tag).second > 0);
+void Data::removeTag(Tag tag) {
+    this->tags.erase(std::remove(this->tags.begin(), this->tags.end(), tag), this->tags.end());
 }
 
 std::string Data::getName() {
@@ -32,13 +32,13 @@ std::string Data::getName() {
 }
 
 std::string Data::getPath() {
-    return this->parent->getParent().getPath() + "/" + this->name;
+    return this->parent->getParent()->getPath() + "/" + this->name;
 }
 
 Data* Data::getParent() {
     return this->parent;
 }
 
-std::set<Tag> Data::getTags() {
+std::vector<Tag> Data::getTags() {
     return this->tags;
 }

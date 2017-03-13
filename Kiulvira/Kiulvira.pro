@@ -1,27 +1,28 @@
-# Add more folders to ship with the application, here
-folder_01.source = qml/Kiulvira
-folder_01.target = qml
-DEPLOYMENTFOLDERS = folder_01
+#-------------------------------------------------
+#
+# Project created by QtCreator 2017-03-13T16:56:17
+#
+#-------------------------------------------------
 
-# Additional import path used to resolve QML modules in Creator's code model
-QML_IMPORT_PATH =
+QT       += core gui
 
-# The .cpp file which was generated for your project. Feel free to hack it.
-SOURCES += main.cpp \
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+
+TARGET = Kiulvira
+TEMPLATE = app
+
+
+SOURCES += main.cpp\
+        mainwindow.cpp \
     tag.cpp \
-    data.cpp \
     file.cpp \
-    directory.cpp
+    directory.cpp \
+    data.cpp
 
-# Installation path
-# target.path =
-
-# Please do not modify the following two lines. Required for deployment.
-include(qtquick2applicationviewer/qtquick2applicationviewer.pri)
-qtcAddDeployment()
-
-HEADERS += \
+HEADERS  += mainwindow.hpp \
     tag.hpp \
-    data.hpp \
     file.hpp \
-    directory.hpp
+    directory.hpp \
+    data.hpp
+
+FORMS    += mainwindow.ui

@@ -2,15 +2,15 @@
 #define DIRECTORY_HPP
 
 #include "data.hpp"
-#include <set>
+#include <vector>
 
 class Directory : public Data {
 private:
-    std::set<Data> content;
+    std::vector<Data> content;
 
 public:
-    Directory(string name, Data* parent);
-    Directory(string name);
+    Directory(std::string name, Data* parent);
+    Directory(std::string name);
 };
 
 #endif // DIRECTORY_HPP

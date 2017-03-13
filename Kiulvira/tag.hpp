@@ -13,6 +13,8 @@ public:
 
     std::string getName();
     QColor getColour();
+    bool operator==(const Tag& other);
+
 };
 
 #endif // TAG_HPP

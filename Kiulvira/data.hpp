@@ -2,26 +2,28 @@
 #define DATA_HPP
 
 #include <string>
-#include <set>
+#include <vector>
+#include "tag.hpp"
+#include <algorithm>
 
 class Data {
 private:
     std::string name;
     Data* parent;
-    std::set<Tag> tags;
+    std::vector<Tag> tags;
 
 public:
-    Data(string name, Data* parent);
-    Data(string name);
+    Data(std::string name, Data* parent);
+    Data(std::string name);
 
-    bool addTag(Tag tag);
-    bool removeTag(Tag tag);
+    void addTag(Tag tag);
+    void removeTag(Tag tag);
 
 
     std::string getName();
     std::string getPath();
     Data* getParent();
-    std::set<Tag> getTags();
+    std::vector<Tag> getTags();
 };
 
 #endif // DATA_HPP
