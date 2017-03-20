@@ -84,7 +84,7 @@ int Session::findGroupByName(const QString &groupName){
     find = false;
     while(!find && i < this->groupes.size()){
         if(this->groupes.at(i).second == groupName){
-            find == true;
+            find = true;
         }else{
             i = i + 1;
         }

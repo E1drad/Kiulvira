@@ -10,13 +10,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWi
 
     QWidget* widget = new QWidget;
     setCentralWidget(widget);
-/*
-    QWidget* topFiller = new QWidget;
-    topFiller->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-    QWidget* bottomFiller = new QWidget;
-    bottomFiller->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-*/
     QVBoxLayout* layout = new QVBoxLayout;
     layout->setMargin(5);
     layout->addWidget(horizontalGroupBox);
@@ -72,7 +66,7 @@ void MainWindow::createDirectory(){
     model = new QDirModel;
     treeView = new QTreeView();
     treeView->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    connect(treeView, SIGNAL(doubleClicked(const QModelIndex &, const QString &)), this, SLOT(addToGroup(QModelIndex, QString)));
+    //connect(treeView, SIGNAL(doubleClicked(const QModelIndex &, const QString &)), this, SLOT(addToGroup(QModelIndex, QString)));
     treeView->setModel(model);
 
 }
@@ -235,6 +229,7 @@ void MainWindow::createActions() {
 }
 
 void MainWindow::createMenus() {
+
     fileMenu = menuBar()->addMenu(tr("&File"));
     fileMenu->addAction(newTagAct);
     fileMenu->addAction(newGroupAct);
@@ -258,4 +253,6 @@ void MainWindow::createMenus() {
 
     helpMenu = menuBar()->addMenu(tr("&Help"));
     helpMenu->addAction(aboutAct);
+    menuBar()->setVisible(true);
 }
+
