@@ -1,19 +1,21 @@
 #ifndef TAG_HPP
 #define TAG_HPP
 
-#include <string>
 #include <QColor>
+#include <algorithm>
+#include <QString>
 
 class Tag {
 private:
-    std::string name;
+    QString name;
     QColor colour;
 public:
-    Tag(std::string name, QColor colour);
-
-    std::string getName();
+    Tag(QString name, QColor colour);
+    Tag(QString name);
+    QString getName();
     QColor getColour();
     bool operator==(const Tag& other);
+    Tag& operator=(Tag tag);
 
 };
 

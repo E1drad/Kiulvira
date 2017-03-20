@@ -7,23 +7,22 @@
 #include <algorithm>
 
 class Data {
-private:
+protected:
     std::string name;
     Data* parent;
-    std::vector<Tag> tags;
+    std::vector<Tag*> tags;
 
 public:
     Data(std::string name, Data* parent);
     Data(std::string name);
-
-    void addTag(Tag tag);
-    void removeTag(Tag tag);
-
+    ~Data();
+    void addTag(Tag* tag);
+    void removeTag(Tag* tag);
 
     std::string getName();
     std::string getPath();
     Data* getParent();
-    std::vector<Tag> getTags();
+    std::vector<Tag*> getTags();
 };
 
 #endif // DATA_HPP

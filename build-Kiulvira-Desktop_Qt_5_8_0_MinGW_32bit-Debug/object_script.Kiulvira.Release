@@ -1,0 +1,12 @@
+INPUT(
+./release\main.o
+./release\mainwindow.o
+./release\data.o
+./release\dialogwindow.o
+./release\directory.o
+./release\file.o
+./release\session.o
+./release\tag.o
+./release\taghandler.o
+./release\moc_mainwindow.o
+);

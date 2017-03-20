@@ -1,7 +1,7 @@
 #ifndef DIRECTORY_HPP
 #define DIRECTORY_HPP
 
-#include "data.hpp"
+#include "data2.hpp"
 #include <vector>
 
 class Directory : public Data {

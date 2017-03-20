@@ -1,11 +1,15 @@
 #include "tag.hpp"
 
-Tag::Tag(std::string name, QColor colour) {
+Tag::Tag(QString name, QColor colour) {
     this->name = name;
     this->colour = colour;
 }
 
-std::string Tag::getName() {
+Tag::Tag(QString name) {
+    this->name = name;
+}
+
+QString Tag::getName() {
     return this->name;
 }
 
@@ -14,5 +18,11 @@ QColor Tag::getColour() {
 }
 
 bool Tag::operator==(const Tag& other) {
-    return this->name == other.name && this->colour == other.colour;
+    return this->name == other.name;
+}
+
+
+Tag& Tag::operator=(Tag tag){
+  std::swap(tag, *this);
+  return *this;
 }

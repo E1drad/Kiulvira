@@ -1,0 +1,12 @@
+INPUT(
+./debug\main.o
+./debug\mainwindow.o
+./debug\data.o
+./debug\dialogwindow.o
+./debug\directory.o
+./debug\file.o
+./debug\session.o
+./debug\tag.o
+./debug\taghandler.o
+./debug\moc_mainwindow.o
+);

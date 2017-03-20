@@ -1,7 +1,7 @@
 #ifndef FILE_HPP
 #define FILE_HPP
 
-#include "data.hpp"
+#include "data2.hpp"
 
 class File : public Data {
 private:
