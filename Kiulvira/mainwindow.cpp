@@ -74,7 +74,6 @@ void MainWindow::createDirectory(){
     QVariant data = treeView->model()->data(index);
     selectDataName = new QString(data.toString());
     connect(treeView, SIGNAL(released()), this, SLOT(changeTag()));
-
 }
 
 MainWindow::~MainWindow() {
@@ -174,9 +173,12 @@ void MainWindow::changeTag(){
     }
     QStringListModel* model = new QStringListModel();
     model->setStringList(tagsToDisplay);
+    columnView = new QColumnView;
+    columnView->setModel(model);
     //layout->addWidget(model);
     QPushButton* button = new QPushButton("Ok");
     connect(button, SIGNAL (released()), this, SLOT(tagDialogHandleButton()) );
+    layout->addWidget(columnView);
     layout->addWidget(listWidget);
     layout->addWidget(label);
     layout->addWidget(button);

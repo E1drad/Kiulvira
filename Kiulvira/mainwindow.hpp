@@ -43,6 +43,7 @@ static QString* selectDataName;
 #include <QStringList>
 
 #include <QStringListModel>
+#include <QColumnView>
 
 namespace Ui {
     class MainWindow;
@@ -95,7 +96,7 @@ private:
     QDirModel* model;
     QDialog* aboutDialog;
     QDialog* tagDialog;
-
+    QColumnView* columnView;
 
 
 private slots:
