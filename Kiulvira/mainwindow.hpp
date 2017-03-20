@@ -1,3 +1,13 @@
+#ifndef VARIABLES_H // header guards
+#define VARIABLES_H
+
+#include <QString>
+
+static QString* activeGroupName;
+static QString* selectDataName;
+
+#endif
+
 #ifndef MAINWINDOW_HPP
 #define MAINWINDOW_HPP
 
@@ -33,6 +43,10 @@
 #include <QListView>
 #include <QBoxLayout>
 #include <QSignalMapper>
+#include <QListWidget>
+#include <QStringList>
+
+#include <QStringListModel>
 
 namespace Ui {
     class MainWindow;
@@ -61,6 +75,7 @@ private:
     QMenu* editMenu;
     QMenu* findMenu;
     QMenu* helpMenu;
+    QMenu* QAMenu;
     QAction* newTagAct;
     QAction* newGroupAct;
     QAction* addToGroupAct;
@@ -73,6 +88,9 @@ private:
     QAction* searchTagAct;
     QAction* aboutAct;
     QAction* exitAct;
+    QAction* resetQATagAct;
+    QAction* resetQAGroupAct;
+
     QLabel* infoLabel;
     QGridLayout* layoutQuickAccess;
     QGridLayout* layoutTagQA;
@@ -85,6 +103,9 @@ private:
     QSignalMapper* signalMapper;
     QLineEdit* tag1Edit;
     QLineEdit* tag2Edit;
+    QDialog* tagDialog;
+
+
 
 private slots:
     void newTag();
@@ -96,12 +117,15 @@ private slots:
     void removeDataTag();
     void associateTag();
     void disassociateTag();
+    void resetQATag();
+    void resetQAGroup();
     void search();
     void about();
-    void handleButton();
     void searchHandleButton();
     void addSearchString();
-    void setSelectGroup(const QString &groupName);
+    void setSelectGroup();
+    void aboutDialogHandleButton();
+    void tagDialogHandleButton();
     void addToGroupView(const QModelIndex &toAdd, const QString &groupName);
 
 };

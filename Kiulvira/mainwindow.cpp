@@ -1,6 +1,7 @@
 #include "mainwindow.hpp"
 #include "ui_mainwindow.h"
 
+
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
 
@@ -69,6 +70,11 @@ void MainWindow::createDirectory(){
     //connect(treeView, SIGNAL(doubleClicked(const QModelIndex &, const QString &)), this, SLOT(addToGroup(QModelIndex, QString)));
     treeView->setModel(model);
 
+    QModelIndex index = treeView->currentIndex();
+    QVariant data = treeView->model()->data(index);
+    selectDataName = new QString(data.toString());
+    connect(treeView, SIGNAL(released()), this, SLOT(changeTag()));
+
 }
 
 MainWindow::~MainWindow() {
@@ -94,6 +100,14 @@ void MainWindow::newTag(){
                 connect(newTag, SIGNAL (released()), this, SLOT (newTag()));
             }
         }
+    }else{
+        bool ok;
+        QString name = QInputDialog::getText(this, tr("New Tag"),
+                                             tr("Name of the new tag:"), QLineEdit::Normal,
+                                             QDir::home().dirName(), &ok);
+        if (ok && !name.isEmpty() && this->session->addTagToQA(new TagHandler(name)) ){
+            layoutTagQA->addWidget(new QPushButton(name), 0, size - 1);
+        }
     }
 }
 
@@ -107,12 +121,24 @@ void MainWindow::newGroup(){
         if (ok && !name.isEmpty() && this->session->createNewGroup(name) ){
             QPushButton* group = new QPushButton(name);
             layoutGroupQA->addWidget(group, 0, size - 1);
-            connect(group, SIGNAL (released()), this, SLOT (setSelectGroup(QString)));
+            //activeGroupName = &name;
+            connect(group, SIGNAL (released()), this, SLOT (setSelectGroup()));
             if(size < this->session->getMaxNumberOfQAGroup()){
                 QPushButton* newGroup = new QPushButton("New Group");
                 layoutGroupQA->addWidget(newGroup, 0, size);
                 connect(newGroup, SIGNAL (released()), this, SLOT (newGroup()));
             }
+        }
+    }else{
+        bool ok;
+        QString name = QInputDialog::getText(this, tr("New group"),
+                                             tr("Name of the new group:"), QLineEdit::Normal,
+                                             QDir::home().dirName(), &ok);
+        if (ok && !name.isEmpty() && this->session->createNewGroup(name) ){
+            QPushButton* group = new QPushButton(name);
+            layoutGroupQA->addWidget(group, 0, size - 1);
+            //activeGroupName = &name;
+            connect(group, SIGNAL (released()), this, SLOT (setSelectGroup()));
         }
     }
 }
@@ -123,7 +149,7 @@ void MainWindow::addToGroup(){
 }
 
 void MainWindow::addToGroupView(const QModelIndex &toAdd, const QString &groupName){
-    int i = this->session->findGroupByName(groupName);
+    //int i = this->session->findGroupByName(groupName);
     //this->session->getGroupes().at(i).first.push_back(toAdd);
 }
 
@@ -132,7 +158,30 @@ void MainWindow::removeFromGroup(){
 }
 
 void MainWindow::changeTag(){
-
+    //1 trouver les Tags
+    //2 display
+    //3 choisir des tags
+    //4 association
+    tagDialog = new QDialog(this);
+    tagDialog->setWindowTitle("Kiulvira : change associated tag");
+    QLabel* label = new QLabel(this);
+    QVBoxLayout* layout = new QVBoxLayout();
+    label->setText(*selectDataName);
+    QListWidget* listWidget = new QListWidget(this);
+    QStringList tagsToDisplay;
+    for(unsigned int i = 0; i < this->session->getAllTags().size(); ++i){
+        tagsToDisplay.push_back(this->session->getAllTags().at(i)->getTagName());
+    }
+    QStringListModel* model = new QStringListModel();
+    model->setStringList(tagsToDisplay);
+    //layout->addWidget(model);
+    QPushButton* button = new QPushButton("Ok");
+    connect(button, SIGNAL (released()), this, SLOT(tagDialogHandleButton()) );
+    layout->addWidget(listWidget);
+    layout->addWidget(label);
+    layout->addWidget(button);
+    tagDialog->setLayout(layout);
+    tagDialog->setVisible(true);
 }
 
 void MainWindow::removeTag(){
@@ -207,6 +256,45 @@ void MainWindow::addSearchString(){
     searchStrings->append(tag1Edit->text());
     searchStrings->append(tag2Edit->text());
 }
+void MainWindow::resetQATag(){
+    QList< QWidget* > children;
+    do{
+       children = tagQA->findChildren< QWidget* >();
+       if ( children.count() == 0 ){
+           break;
+       }
+       delete children.at( 0 );
+    }while ( true );
+    this->session->clearQATags();
+    layoutTagQA->setContentsMargins(0, 0, 0, 0);
+    QPushButton* newTag = new QPushButton("New Tag");
+    layoutTagQA->addWidget(newTag, 0, 0);
+    connect(newTag, SIGNAL (released()), this, SLOT (newTag()));
+    tagQA->setLayout(layoutTagQA);
+    layoutQuickAccess->addWidget(tagQA,0,1);
+    horizontalGroupBox->setLayout(layoutQuickAccess);
+
+}
+
+void MainWindow::resetQAGroup(){
+    QList< QWidget* > children;
+    do{
+       children = groupQA->findChildren< QWidget* >();
+       if ( children.count() == 0 ){
+           break;
+       }
+       delete children.at( 0 );
+    }while ( true );
+    this->session->clearGroupes();
+
+    layoutGroupQA->setContentsMargins(0, 0, 0, 0);
+    QPushButton* newGroup = new QPushButton("New Group");
+    layoutGroupQA->addWidget(newGroup, 0, 0);
+    connect(newGroup, SIGNAL (released()), this, SLOT (newGroup()));
+    groupQA->setLayout(layoutGroupQA);
+    layoutQuickAccess->addWidget(groupQA,0,0);
+    horizontalGroupBox->setLayout(layoutQuickAccess);
+}
 
 void MainWindow::about(){
    aboutDialog = new QDialog(this);
@@ -219,7 +307,7 @@ void MainWindow::about(){
    label->setText("This project is still a work in progress.");
 
    QPushButton* button = new QPushButton("Ok");
-   connect(button, SIGNAL (released()), this, SLOT(handleButton()) );
+   connect(button, SIGNAL (released()), this, SLOT(aboutDialogHandleButton()) );
 
    layout->addWidget(text);
 
@@ -231,15 +319,18 @@ void MainWindow::about(){
    aboutDialog->setVisible(true);
 }
 
-void MainWindow::setSelectGroup(const QString &groupName){
-    int i = this->session->findGroupByName(groupName);
-    this->session->setSelectGroup(this->session->getGroupes().at(i));
+void MainWindow::setSelectGroup(){
+    //int i = this->session->findGroupByName(activeGroupName);
+    //this->session->setSelectGroup(this->session->getGroupes().at(i));
 }
 
-void MainWindow::handleButton() {
+void MainWindow::aboutDialogHandleButton() {
     aboutDialog->close();
 }
 
+void MainWindow::tagDialogHandleButton() {
+    tagDialog->close();
+}
 
 void MainWindow::createActions() {
     newTagAct = new QAction(tr("&New Tag..."), this);
@@ -302,6 +393,17 @@ void MainWindow::createActions() {
     aboutAct->setStatusTip(tr("About Kiulvira"));
     connect(aboutAct, &QAction::triggered, this, &MainWindow::about);
 
+    resetQAGroupAct = new QAction(tr("&Reset Quick Action Group"), this);
+    //resetQAGroupAct->setShortcuts(QKeySequence::Redo);
+    resetQAGroupAct->setStatusTip(tr("Reset Quick Action Group"));
+    connect(resetQAGroupAct, &QAction::triggered, this, &MainWindow::resetQAGroup);
+
+    resetQATagAct = new QAction(tr("&Reset Quick Action Tag"), this);
+    //resetQATagAct->setShortcuts(QKeySequence::Redo);
+    resetQATagAct->setStatusTip(tr("Reset Quick Action Tag"));
+    connect(resetQATagAct, &QAction::triggered, this, &MainWindow::resetQATag);
+
+
 }
 
 void MainWindow::createMenus() {
@@ -329,6 +431,10 @@ void MainWindow::createMenus() {
 
     helpMenu = menuBar()->addMenu(tr("&Help"));
     helpMenu->addAction(aboutAct);
+
+    QAMenu = menuBar()->addMenu(tr("&Quick Access"));
+    QAMenu->addAction(resetQAGroupAct);
+    QAMenu->addAction(resetQATagAct);
     menuBar()->setVisible(true);
 }
 

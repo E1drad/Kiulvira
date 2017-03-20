@@ -15,6 +15,7 @@ class Session {
 private:
     std::vector< std::pair<std::vector<Data*>, QString> >  groupes;
     std::vector<TagHandler*> quickAccessTag;
+    std::vector<TagHandler*> tags;
     unsigned int maxNumberOfQATag;
     unsigned int maxNumberOfQAGroup;
     std::pair<std::vector<Data*>, QString>  selectGroupe;
@@ -30,9 +31,13 @@ public:
     std::pair<std::vector<Data*>, QString> getSelectGroup();
     void setSelectGroup(std::pair<std::vector<Data*>, QString> groupe);
     std::vector< std::pair<std::vector<Data*>, QString> > getGroupes();
-    int findGroupByName(const QString &groupName);
+    int findGroupByName(QString* &groupName);
     bool add(const QModelIndex &toAdd, int i);
     TagHandler getTagHandler(QString string);
+    std::vector<TagHandler*> getQATags();
+    std::vector<TagHandler*> getAllTags();
+    void clearGroupes();
+    void clearQATags();
 };
 
 #endif // SESSION_HPP

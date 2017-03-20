@@ -36,6 +36,7 @@ bool Session::addTagToQA(TagHandler* tag){
             isAdd = false;
         }else{
             this->quickAccessTag.push_back(tag);
+            this->tags.push_back(tag);
             isAdd = true;
         }
     }else{
@@ -77,7 +78,11 @@ std::vector< std::pair<std::vector<Data*>, QString> > Session::getGroupes(){
     return this->groupes;
 }
 
-int Session::findGroupByName(const QString &groupName){
+std::vector<TagHandler*> Session::getQATags(){
+    return this->quickAccessTag;
+}
+
+int Session::findGroupByName(QString* &groupName){
     bool find;
     int i;
     i = 0;
@@ -98,4 +103,16 @@ bool Session::add(const QModelIndex &toAdd, int i){
 
 TagHandler Session::getTagHandler(QString string) {
 
+}
+void Session::clearGroupes(){
+    this->groupes.clear();
+}
+
+void Session::clearQATags(){
+    this->quickAccessTag.clear();
+}
+
+
+std::vector<TagHandler*> Session::getAllTags(){
+    return this->tags;
 }

@@ -22,6 +22,7 @@ public:
     bool associateData(Data* data);
     void disassociateData(Data* data);
     int getSizeDataAssociated();
+    QString getTagName();
 };
 
 #endif // TAGHANDLER_HPP
