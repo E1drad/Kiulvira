@@ -78,6 +78,10 @@ std::vector< std::pair<std::vector<Data*>, QString> > Session::getGroupes(){
     return this->groupes;
 }
 
+std::vector<TagHandler*> Session::getQATags(){
+    return this->quickAccessTag;
+}
+
 int Session::findGroupByName(QString* &groupName){
     bool find;
     int i;
@@ -95,4 +99,17 @@ int Session::findGroupByName(QString* &groupName){
 
 bool Session::add(const QModelIndex &toAdd, int i){
 
+}
+
+void Session::clearGroupes(){
+    this->groupes.clear();
+}
+
+void Session::clearQATags(){
+    this->quickAccessTag.clear();
+}
+
+
+std::vector<TagHandler*> Session::getAllTags(){
+    return this->tags;
 }

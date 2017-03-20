@@ -33,6 +33,10 @@ public:
     std::vector< std::pair<std::vector<Data*>, QString> > getGroupes();
     int findGroupByName(QString* &groupName);
     bool add(const QModelIndex &toAdd, int i);
+    std::vector<TagHandler*> getQATags();
+    std::vector<TagHandler*> getAllTags();
+    void clearGroupes();
+    void clearQATags();
 };
 
 #endif // SESSION_HPP

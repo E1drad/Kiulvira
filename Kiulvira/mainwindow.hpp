@@ -3,7 +3,8 @@
 
 #include <QString>
 
-static QString* activeGroupName ;
+static QString* activeGroupName;
+static QString* selectDataName;
 
 #endif
 
@@ -38,7 +39,10 @@ static QString* activeGroupName ;
 #include <QList>
 #include <QPalette>
 #include <QTextEdit>
+#include <QListWidget>
+#include <QStringList>
 
+#include <QStringListModel>
 
 namespace Ui {
     class MainWindow;
@@ -67,6 +71,7 @@ private:
     QMenu* editMenu;
     QMenu* findMenu;
     QMenu* helpMenu;
+    QMenu* QAMenu;
     QAction* newTagAct;
     QAction* newGroupAct;
     QAction* addToGroupAct;
@@ -79,6 +84,9 @@ private:
     QAction* searchTagAct;
     QAction* aboutAct;
     QAction* exitAct;
+    QAction* resetQATagAct;
+    QAction* resetQAGroupAct;
+
     QLabel* infoLabel;
     QGridLayout* layoutQuickAccess;
     QGridLayout* layoutTagQA;
@@ -86,6 +94,8 @@ private:
     QTreeView* treeView;
     QDirModel* model;
     QDialog* aboutDialog;
+    QDialog* tagDialog;
+
 
 
 private slots:
@@ -98,10 +108,13 @@ private slots:
     void removeDataTag();
     void associateTag();
     void disassociateTag();
+    void resetQATag();
+    void resetQAGroup();
     void search();
     void about();
     void setSelectGroup();
-    void handleButton();
+    void aboutDialogHandleButton();
+    void tagDialogHandleButton();
     void addToGroupView(const QModelIndex &toAdd, const QString &groupName);
 
 };

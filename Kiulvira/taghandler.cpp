@@ -43,3 +43,8 @@ void TagHandler::disassociateData(Data* data){
 int TagHandler::getSizeDataAssociated(){
     return this->datasAssociated.size();
 }
+
+
+QString TagHandler::getTagName(){
+    return this->tag->getName();
+}
