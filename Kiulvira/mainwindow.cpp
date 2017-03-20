@@ -203,9 +203,61 @@ void MainWindow::disassociateTag(){
 }
 
 void MainWindow::search(){
+    searchDialog = new QDialog(this);
+    searchDialog->setWindowTitle("Search files with tag");
+    searchStrings = new QStringList();
+    QPushButton* searchButton = new QPushButton("Search");
+    signalMapper = new QSignalMapper(this);
+    connect(searchButton, SIGNAL (released()), this, SLOT(searchHandleButton()) );
+
+    QVBoxLayout* vlayout = new QVBoxLayout(searchDialog);
+
+    tag1Edit = new QLineEdit();
+    tag2Edit = new QLineEdit();
+    QWidget* searchValuesEdit = new QWidget(searchDialog);
+    connect(tag1Edit, SIGNAL(editingFinished()), this, SLOT(addSearchString()));
+    connect(tag2Edit, SIGNAL(editingFinished()), this, SLOT(addSearchString()));
+
+    QGroupBox* formGroupBox = new QGroupBox(tr("Search"));
+    QFormLayout *flayout = new QFormLayout;
+    flayout->addRow(tr("&Tag 1:"), tag1Edit);
+    flayout->addRow(tr("&Tag 2:"), tag2Edit);
+    formGroupBox->setLayout(flayout);
+
+    QVBoxLayout* resultLayout = new QVBoxLayout();
+    //need a model to do anything and display the results
+    QListView* resultView = new QListView();
+    resultLayout->addWidget(resultView);
+    //std::cout << text.toStdString() << std::endl;
+    vlayout->addWidget(formGroupBox);
+    vlayout->addWidget(searchButton);
+
+    searchDialog->setLayout(vlayout);
+    searchValuesEdit->setVisible(true);
+    searchDialog->setVisible(true);
 
 }
 
+void MainWindow::searchHandleButton(){
+    //search function
+    //search(searchStrings)
+    if (searchStrings->empty()) {
+        statusBar()->showMessage("Search value cannot be empty");
+    }
+    else {
+
+        for (int i = 0; i < searchStrings->length(); ++i) {
+            statusBar()->showMessage("Search not fully implemented yet");
+        }
+    }
+
+}
+
+void MainWindow::addSearchString(){
+    //QString str = new QString(ta);
+    searchStrings->append(tag1Edit->text());
+    searchStrings->append(tag2Edit->text());
+}
 void MainWindow::resetQATag(){
     QList< QWidget* > children;
     do{
@@ -249,8 +301,8 @@ void MainWindow::resetQAGroup(){
 void MainWindow::about(){
    aboutDialog = new QDialog(this);
    aboutDialog->setWindowTitle("About Kiulvira");
-   QLabel* label = new QLabel(this);
-   QTextEdit* text = new QTextEdit(this);
+   QLabel* label = new QLabel(aboutDialog);
+   QTextEdit* text = new QTextEdit(aboutDialog);
    text->setText("Kiulvira is a Tag managing software built as a group project from Master ALMA.");
    text->setReadOnly(true);
    QVBoxLayout* layout = new QVBoxLayout();

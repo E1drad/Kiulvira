@@ -101,6 +101,9 @@ bool Session::add(const QModelIndex &toAdd, int i){
 
 }
 
+TagHandler Session::getTagHandler(QString string) {
+
+}
 void Session::clearGroupes(){
     this->groupes.clear();
 }

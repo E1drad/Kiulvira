@@ -39,6 +39,10 @@ static QString* selectDataName;
 #include <QList>
 #include <QPalette>
 #include <QTextEdit>
+#include <QFormLayout>
+#include <QListView>
+#include <QBoxLayout>
+#include <QSignalMapper>
 #include <QListWidget>
 #include <QStringList>
 
@@ -95,6 +99,11 @@ private:
     QTreeView* treeView;
     QDirModel* model;
     QDialog* aboutDialog;
+    QDialog* searchDialog;
+    QStringList* searchStrings;
+    QSignalMapper* signalMapper;
+    QLineEdit* tag1Edit;
+    QLineEdit* tag2Edit;
     QDialog* tagDialog;
     QColumnView* columnView;
 
@@ -113,6 +122,8 @@ private slots:
     void resetQAGroup();
     void search();
     void about();
+    void searchHandleButton();
+    void addSearchString();
     void setSelectGroup();
     void aboutDialogHandleButton();
     void tagDialogHandleButton();

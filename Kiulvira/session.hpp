@@ -33,6 +33,7 @@ public:
     std::vector< std::pair<std::vector<Data*>, QString> > getGroupes();
     int findGroupByName(QString* &groupName);
     bool add(const QModelIndex &toAdd, int i);
+    TagHandler getTagHandler(QString string);
     std::vector<TagHandler*> getQATags();
     std::vector<TagHandler*> getAllTags();
     void clearGroupes();
