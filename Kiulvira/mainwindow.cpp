@@ -179,7 +179,7 @@ void MainWindow::changeTag(){
     QPushButton* button = new QPushButton("Ok");
     connect(button, SIGNAL (released()), this, SLOT(tagDialogHandleButton()) );
     layout->addWidget(columnView);
-    layout->addWidget(listWidget);
+    //layout->addWidget(listWidget);
     layout->addWidget(label);
     layout->addWidget(button);
     tagDialog->setLayout(layout);
