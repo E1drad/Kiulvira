@@ -36,6 +36,7 @@ bool Session::addTagToQA(TagHandler* tag){
             isAdd = false;
         }else{
             this->quickAccessTag.push_back(tag);
+            this->tags.push_back(tag);
             isAdd = true;
         }
     }else{
@@ -77,7 +78,7 @@ std::vector< std::pair<std::vector<Data*>, QString> > Session::getGroupes(){
     return this->groupes;
 }
 
-int Session::findGroupByName(const QString &groupName){
+int Session::findGroupByName(QString* &groupName){
     bool find;
     int i;
     i = 0;

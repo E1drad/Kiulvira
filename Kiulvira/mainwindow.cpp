@@ -1,6 +1,7 @@
 #include "mainwindow.hpp"
 #include "ui_mainwindow.h"
 
+
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
 
@@ -68,6 +69,7 @@ void MainWindow::createDirectory(){
     treeView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     //connect(treeView, SIGNAL(doubleClicked(const QModelIndex &, const QString &)), this, SLOT(addToGroup(QModelIndex, QString)));
     treeView->setModel(model);
+    connect(treeView, SIGNAL(), this, SLOT(addToGroup()));
 
 }
 
@@ -94,6 +96,14 @@ void MainWindow::newTag(){
                 connect(newTag, SIGNAL (released()), this, SLOT (newTag()));
             }
         }
+    }else{
+        bool ok;
+        QString name = QInputDialog::getText(this, tr("New Tag"),
+                                             tr("Name of the new tag:"), QLineEdit::Normal,
+                                             QDir::home().dirName(), &ok);
+        if (ok && !name.isEmpty() && this->session->addTagToQA(new TagHandler(name)) ){
+            layoutTagQA->addWidget(new QPushButton(name), 0, size - 1);
+        }
     }
 }
 
@@ -107,12 +117,24 @@ void MainWindow::newGroup(){
         if (ok && !name.isEmpty() && this->session->createNewGroup(name) ){
             QPushButton* group = new QPushButton(name);
             layoutGroupQA->addWidget(group, 0, size - 1);
-            connect(group, SIGNAL (released()), this, SLOT (setSelectGroup(QString)));
+            activeGroupName = &name;
+            connect(group, SIGNAL (released()), this, SLOT (setSelectGroup()));
             if(size < this->session->getMaxNumberOfQAGroup()){
                 QPushButton* newGroup = new QPushButton("New Group");
                 layoutGroupQA->addWidget(newGroup, 0, size);
                 connect(newGroup, SIGNAL (released()), this, SLOT (newGroup()));
             }
+        }
+    }else{
+        bool ok;
+        QString name = QInputDialog::getText(this, tr("New group"),
+                                             tr("Name of the new group:"), QLineEdit::Normal,
+                                             QDir::home().dirName(), &ok);
+        if (ok && !name.isEmpty() && this->session->createNewGroup(name) ){
+            QPushButton* group = new QPushButton(name);
+            layoutGroupQA->addWidget(group, 0, size - 1);
+            activeGroupName = &name;
+            connect(group, SIGNAL (released()), this, SLOT (setSelectGroup()));
         }
     }
 }
@@ -123,7 +145,7 @@ void MainWindow::addToGroup(){
 }
 
 void MainWindow::addToGroupView(const QModelIndex &toAdd, const QString &groupName){
-    int i = this->session->findGroupByName(groupName);
+    //int i = this->session->findGroupByName(groupName);
     //this->session->getGroupes().at(i).first.push_back(toAdd);
 }
 
@@ -159,8 +181,8 @@ void MainWindow::about(){
 
 }
 
-void MainWindow::setSelectGroup(const QString &groupName){
-    int i = this->session->findGroupByName(groupName);
+void MainWindow::setSelectGroup(){
+    int i = this->session->findGroupByName(activeGroupName);
     this->session->setSelectGroup(this->session->getGroupes().at(i));
 }
 

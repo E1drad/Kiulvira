@@ -1,3 +1,12 @@
+#ifndef VARIABLES_H // header guards
+#define VARIABLES_H
+
+#include <QString>
+
+static QString* activeGroupName ;
+
+#endif
+
 #ifndef MAINWINDOW_HPP
 #define MAINWINDOW_HPP
 
@@ -28,6 +37,7 @@
 #include <QTreeWidget>
 #include <QList>
 #include <QPalette>
+
 
 namespace Ui {
     class MainWindow;
@@ -88,7 +98,7 @@ private slots:
     void disassociateTag();
     void search();
     void about();
-    void setSelectGroup(const QString &groupName);
+    void setSelectGroup();
     void addToGroupView(const QModelIndex &toAdd, const QString &groupName);
 
 };
