@@ -29,6 +29,10 @@
 #include <QList>
 #include <QPalette>
 #include <QTextEdit>
+#include <QFormLayout>
+#include <QListView>
+#include <QBoxLayout>
+#include <QSignalMapper>
 
 namespace Ui {
     class MainWindow;
@@ -76,7 +80,11 @@ private:
     QTreeView* treeView;
     QDirModel* model;
     QDialog* aboutDialog;
-
+    QDialog* searchDialog;
+    QStringList* searchStrings;
+    QSignalMapper* signalMapper;
+    QLineEdit* tag1Edit;
+    QLineEdit* tag2Edit;
 
 private slots:
     void newTag();
@@ -91,6 +99,8 @@ private slots:
     void search();
     void about();
     void handleButton();
+    void searchHandleButton();
+    void addSearchString();
     void setSelectGroup(const QString &groupName);
     void addToGroupView(const QModelIndex &toAdd, const QString &groupName);
 
