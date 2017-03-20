@@ -156,12 +156,35 @@ void MainWindow::search(){
 }
 
 void MainWindow::about(){
+   aboutDialog = new QDialog(this);
+   aboutDialog->setWindowTitle("About Kiulvira");
+   QLabel* label = new QLabel(this);
+   QTextEdit* text = new QTextEdit(this);
+   text->setText("Kiulvira is a Tag managing software built as a group project from Master ALMA.");
+   text->setReadOnly(true);
+   QVBoxLayout* layout = new QVBoxLayout();
+   label->setText("This project is still a work in progress.");
 
+   QPushButton* button = new QPushButton("Ok");
+   connect(button, SIGNAL (released()), this, SLOT(handleButton()) );
+
+   layout->addWidget(text);
+
+   layout->addWidget(label);
+
+   layout->addWidget(button);
+   aboutDialog->setLayout(layout);
+
+   aboutDialog->setVisible(true);
 }
 
 void MainWindow::setSelectGroup(const QString &groupName){
     int i = this->session->findGroupByName(groupName);
     this->session->setSelectGroup(this->session->getGroupes().at(i));
+}
+
+void MainWindow::handleButton() {
+    aboutDialog->close();
 }
 
 

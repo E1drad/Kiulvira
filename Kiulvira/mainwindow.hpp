@@ -28,6 +28,7 @@
 #include <QTreeWidget>
 #include <QList>
 #include <QPalette>
+#include <QTextEdit>
 
 namespace Ui {
     class MainWindow;
@@ -74,6 +75,7 @@ private:
     QGridLayout* layoutGroupQA;
     QTreeView* treeView;
     QDirModel* model;
+    QDialog* aboutDialog;
 
 
 private slots:
@@ -88,6 +90,7 @@ private slots:
     void disassociateTag();
     void search();
     void about();
+    void handleButton();
     void setSelectGroup(const QString &groupName);
     void addToGroupView(const QModelIndex &toAdd, const QString &groupName);
 
