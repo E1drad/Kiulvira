@@ -95,3 +95,7 @@ int Session::findGroupByName(const QString &groupName){
 bool Session::add(const QModelIndex &toAdd, int i){
 
 }
+
+TagHandler Session::getTagHandler(QString string) {
+
+}

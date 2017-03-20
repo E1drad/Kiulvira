@@ -195,6 +195,9 @@ void MainWindow::searchHandleButton(){
     }
     else {
 
+        for (int i = 0; i < searchStrings->length(); ++i) {
+            statusBar()->showMessage("Search not fully implemented yet");
+        }
     }
 
 }
