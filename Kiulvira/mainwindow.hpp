@@ -37,6 +37,7 @@ static QString* activeGroupName ;
 #include <QTreeWidget>
 #include <QList>
 #include <QPalette>
+#include <QTextEdit>
 
 
 namespace Ui {
@@ -84,6 +85,7 @@ private:
     QGridLayout* layoutGroupQA;
     QTreeView* treeView;
     QDirModel* model;
+    QDialog* aboutDialog;
 
 
 private slots:
@@ -99,6 +101,7 @@ private slots:
     void search();
     void about();
     void setSelectGroup();
+    void handleButton();
     void addToGroupView(const QModelIndex &toAdd, const QString &groupName);
 
 };

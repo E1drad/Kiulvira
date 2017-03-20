@@ -38,6 +38,10 @@ std::string Data::getPath() {
     return this->parent->getParent()->getPath() + "/" + this->name;
 }
 
+/**
+ * @brief Data::getParent returns the parent Data from current data
+ * @return Data
+ */
 Data* Data::getParent() {
     return this->parent;
 }
